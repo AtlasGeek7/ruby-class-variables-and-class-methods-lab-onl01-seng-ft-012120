@@ -5,8 +5,6 @@ class Song
   @@count = 0
   @@genres = []
   @@artists = []
-  @@genres_stat = {}
-  @@artists_stat = {}
 
   def initialize(name,artist,genre)
     @name = name
@@ -31,24 +29,26 @@ class Song
   end
 
   def Song.genre_count
+    hash = {}
     @@all.each { |s|
-      if @@genres_stat[s.genre.to_sym]
-        @@genres_stat[s.genre.to_sym] += 1
+      if hash[s.genre.to_sym]
+        hash[s.genre.to_sym] += 1
       else
-        @@genres_stat[s.genre.to_sym] = 1
+        hash[s.genre.to_sym] = 1
       end
     }
-    return @@genres_stat
+    return hash
   end
 
   def Song.artist_count
+    hash = {}
     @@all.each { |s|
-      if @@artists_stat[s.artist.to_sym]
-        @@artists_stat[s.artist.to_sym] += 1
+      if hash[s.artist.to_sym]
+        hash[s.artist.to_sym] += 1
       else
-        @@artists_stat[s.artist.to_sym] = 1
+        hash[s.artist.to_sym] = 1
       end
     }
-    return @@artists_stat
+    return hash
   end
 end
