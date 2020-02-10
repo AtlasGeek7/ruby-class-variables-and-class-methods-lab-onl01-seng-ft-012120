@@ -1,54 +1,37 @@
 class Song
-  attr_accessor :name, :artist, :genre
-
-  @@all= []
   @@count = 0
   @@genres = []
   @@artists = []
-
-  def initialize(name,artist,genre)
+  
+  attr_accessor :name, :artist, :genre
+  
+  def initialize (name, artist, genre)
     @name = name
     @artist = artist
     @genre = genre
+
     @@count += 1
-    @@all << self
     @@genres << genre
     @@artists << artist
   end
-
-  def Song.count
-    return @@count
+  
+  def self.count
+    @@count
+  end
+  
+  def self.genres
+    @@genres.uniq
+  end
+  
+  def self.artists
+    @@artists.uniq
+  end
+  
+  def self.genre_count
+    @@genres.inject(Hash.new(0)) { |hash, element| hash[element] += 1; hash }
   end
 
-  def Song.genres
-    return @@genres.uniq
-  end
-
-  def Song.artists
-    return @@artists.uniq
-  end
-
-  def Song.genre_count
-    hash = {}
-    @@all.each { |s|
-      if hash[s.genre.to_sym]
-        hash[s.genre.to_sym] += 1
-      else
-        hash[s.genre.to_sym] = 1
-      end
-    }
-    return hash
-  end
-
-  def Song.artist_count
-    hash = {}
-    @@all.each { |s|
-      if hash[s.artist.to_sym]
-        hash[s.artist.to_sym] += 1
-      else
-        hash[s.artist.to_sym] = 1
-      end
-    }
-    return hash
-  end
+  def self.artist_count
+    @@artists.inject(Hash.new(0)) { |hash, element| hash[element] += 1; hash}
+    end
 end
